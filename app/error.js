@@ -2,7 +2,7 @@ exports.notFoundHandler = async (_req, _res, next) => {
   try {
     const error = new Error("Resource not found.");
     error.status = 404;
-    return error;
+    throw error;
   } catch (error) {
     next(error);
   }
