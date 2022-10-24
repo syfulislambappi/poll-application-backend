@@ -15,6 +15,7 @@ exports.createPollHandler = async (req, res, next) => {
     await poll.save();
     res.status(201).json({ message: "Poll is created.", poll });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -24,6 +25,18 @@ exports.getPollHandler = async (_req, res, next) => {
     const polls = await Poll.find({}).exec();
     res.status(200).json(polls);
   } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+exports.getSinglePollHandler = async (req, res, next) => {
+  try {
+    const { pollId } = req.params;
+    const poll = await Poll.find({ pollId }).exec();
+    res.status(200).json(poll);
+  } catch (error) {
+    console.log(error);
     next(error);
   }
 };
