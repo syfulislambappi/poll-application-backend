@@ -15,7 +15,12 @@ const pollSchema = new Schema({
     type: String,
     required: [true, "Poll description must be inserted."],
   },
-  options: [{ body: String, value: { type: String, default: 0 } }],
+
+  options: {
+    type: [{ name: String, vote: Number }],
+    required: true,
+  },
+  totalVote: { type: Number, default: 0 },
 });
 
 const Poll = model("Poll", pollSchema);

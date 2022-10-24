@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const uri = process.env.URI;
 
-const run = async () => {
+const dbConnection = async () => {
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, { connectTimeoutMS: 2000 });
     console.log("Database is connected.");
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = run;
+module.exports = dbConnection;
