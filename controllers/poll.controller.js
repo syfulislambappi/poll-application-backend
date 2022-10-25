@@ -40,3 +40,24 @@ exports.getSinglePollHandler = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.updateVoteHandler = async (req, res, next) => {
+  try {
+    const { voteId, pollId } = req.body;
+
+    const poll = await Poll.findOne({ pollId: pollId });
+
+    let options = [...poll.options];
+    let index = options.findIndex((v) => v.id === voteId);
+    options[index].vote = options[index].vote + 1;
+    let totalVote = poll.totalVote + 1;
+
+    await Poll.findOneAndUpdate(
+      { pollId: pollId },
+      { $set: { options, totalVote } }
+    );
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};

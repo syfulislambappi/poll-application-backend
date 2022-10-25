@@ -20,7 +20,7 @@ const pollSchema = new Schema({
     type: [{ name: String, vote: Number }],
     required: true,
   },
-  totalVote: { type: Number, default: 0 },
+  totalVote: { type: Number, default: 0, required: true },
 });
 
 const Poll = model("Poll", pollSchema);
